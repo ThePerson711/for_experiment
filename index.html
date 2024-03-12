@@ -1,14 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .text {
+      width: calc(1vw*80);
+      background-color: aqua;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-    <div className="div">
-        <p id="p">sa</p>
-    </div>
-    <script src="script.js"></script>
+  <p class="text">
+    Uzbekistan (Uzbek: Oʻzbekiston, Ўзбекистон; UK: /ʊzˌbɛkɪˈstɑːn, ʌz-, -ˈstæn/, US: /ʊzˈbɛkɪstæn, -stɑːn/ ⓘ),[11][12] officially the Republic of Uzbekistan (Oʻzbekiston Respublikasi, Ўзбекистон Республикаси), is a country located in Central Asia. It is surrounded by five countries: Kazakhstan to the north, Kyrgyzstan to the northeast, Tajikistan to the southeast, Afghanistan to the south, and Turkmenistan to the southwest, making it one of only two doubly landlocked countries on Earth, along with Liechtenstein. Uzbekistan is part of the Turkic world, as well as a member of the Organization of Turkic States. Uzbek is the majority language, while Russian is widely spoken and understood. Islam is the predominant religion, and most Uzbeks are Sunni Muslims.[
+  </p>
+  <p id="answ_" class="text">?</p>
+  <script src="translate.js"></script>
+  <script>
+    let changed = true;
+    let selected_text = "";
+
+    document.addEventListener('selectionchange', ()=>{
+      changed = false;
+      setTimeout(() => {
+        changed = true;
+      }, 500);
+    });
+
+
+    setInterval(() => {
+      if (changed) {
+        if (selected_text !== window.getSelection().toString()) {
+          selected_text = window.getSelection().toString();
+          console.log(selected_text);
+          document.getElementById("answ_").innerHTML = selected_text;
+        }
+      }
+    }, 100);
+    
+    //console.log(TranslateText("en", "uz", "book"));
+  </script>
 </body>
 </html>
