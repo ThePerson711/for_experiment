@@ -42,23 +42,26 @@ document.documentElement.setAttribute('text-size',"22");
 
 //TextAllPage();
 //NewList();
-StartClicked();
 
+StartClicked();
+document.getElementById("input_text").value = shablon;
 function FixText() {
   pre_LP = 0;
   lines = [];
   innerText = document.getElementById("input_text").value;
+
   for (let i = 0; i < innerText.length; i++) {
-    if (innerText.substr(i, 1) === "\n") {
+    if (innerText.substr(i, 1) === "\n" || i === innerText.length-1) {
       lines.push(innerText.substr(pre_LP, (i - pre_LP)))
       pre_LP = i+1;
     }
   }
-  console.table(lines)
+  console.table("t>", lines)
 }
 
 function TextAllPage() {
   FixText();
+  ReadList.innerHTML = "";
   lines.forEach(element => {
     ReadList.innerHTML += `<p>${element}</p>`;
   });
@@ -84,13 +87,13 @@ function NewList() {
 }
 
 function StartClicked() {
-  if (document.getElementById("input_text").value.length < 10) {
-    document.getElementById("input_text").value = shablon;
-  }
+  //if (document.getElementById("input_text").value.length < 10) {
+  //}
   add_list_position = 50;
   id_start_list = setInterval(() => {
     add_list_position -= 5;
     if (add_list_position <= -100) {
+      console.log(document.getElementById("input_text").value)
       EnteredText = document.getElementById("input_text").value;
       MainInterval(true);
       TextAllPage();

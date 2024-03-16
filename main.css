@@ -196,6 +196,7 @@
   }
   .read_list p {
     margin: 4px 6px;
+    color: white;
   }
   .text_ {
     font-size: var(--text-size);
