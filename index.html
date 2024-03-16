@@ -3,28 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Experiment</title>
-  <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: lightgray;
-    }
-    .text {
-      font-size: 34px;
-      font-weight: bold;
-    }
-  </style>
+  <title>Reader (by AKROYIT)</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" type="text/css" href="main.css"> 
 </head>
 <body>
-  <p class="text" id="p_1">?</p>
-  <p class="text" id="p_2">?</p>
-  <script>
-    document.getElementById("p_1").innerHTML = 
-    `width: ${window.innerWidth}`;
-    document.getElementById("p_2").innerHTML = 
-    `width: ${window.innerHeight}`;  </script>
+
+  <div class="display" id="display">
+    <div class="header" id="header">
+      <div class="back_div" id="back_div" onclick="NewList();">
+         New
+      </div>
+      <div class="logo_div" id="logo_div">
+        <div class="translte_panel" id="translate_panel">
+        </div>
+      </div>
+      <div class="menu_div" id="menu_div">
+        Menu
+      </div>
+    </div>
+    
+    <div class="scroll_list" id="scroll_list">
+      <div class="read_list" id="read_list">
+        <p class="text_" id="text_p">
+        </p>
+      </div>
+    </div>
+    <div class="add_list" id="add_list">
+      <textarea name="?" id="input_text" cols="30" rows="10" 
+        class="input_text">
+      </textarea>
+      <button class="start_btn" id="start_btn" onclick="
+        StartClicked();">
+        Start
+      </button>
+    </div>
+  </div>
+  <script src="translate.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
