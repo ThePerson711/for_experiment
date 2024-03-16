@@ -84,7 +84,9 @@ function NewList() {
 }
 
 function StartClicked() {
-  document.getElementById("input_text").value = shablon;
+  if (document.getElementById("input_text").value.length < 10) {
+    document.getElementById("input_text").value = shablon;
+  }
   add_list_position = 50;
   id_start_list = setInterval(() => {
     add_list_position -= 5;
