@@ -4,11 +4,21 @@
   }
 
   [page-theme="light"] {
-    --body-bg-color: rgba(24, 23, 23, 0.75);
+    --body-bg-color: #bbbbbb;
     --body-element-color: rgb(173, 173, 173);
-    --text-color: rgb(219, 219, 219);
+    --text-color: rgb(11, 11, 11);
     --title-color: rgb(108, 73, 182);
     --button-bg-color: rgb(108, 73, 182);
+    --button-border-color: greenyellow;
+    --add-list-bg: rgb(124, 123, 123);
+    --add-list-border-col: white;
+    --setting-bg-color: rgb(124, 123, 123);
+    --setting-div-bg-color: rgb(175, 165, 165);
+    --setting-list-bg-color: rgb(183, 182, 182);
+    --setting-border-color: black;
+    --setting-choise-bg-color: rgb(89, 76, 116);
+    --setting-selected-bg-color: rgb(108, 73, 182);
+    --setting-shadow-color: rgb(46, 29, 61);
   }
   [page-theme="dark"] {
     --body-bg-color: rgba(24, 23, 23, 0.75);
@@ -19,6 +29,30 @@
     --button-border-color: greenyellow;
     --add-list-bg: rgb(59, 59, 59);
     --add-list-border-col: white;
+    --setting-bg-color: rgb(59, 59, 59);
+    --setting-div-bg-color: black;
+    --setting-list-bg-color: rgb(120, 116, 116);
+    --setting-border-color: black;
+    --setting-choise-bg-color: rgb(89, 76, 116);
+    --setting-selected-bg-color: rgb(108, 73, 182);
+    --setting-shadow-color: rgb(46, 29, 61);
+  }
+  [page-theme="read"] {
+    --body-bg-color: rgb(237, 209, 176);
+    --body-element-color: rgb(173, 173, 173);
+    --text-color: rgb(31, 31, 31);
+    --title-color: rgb(108, 73, 182);
+    --button-bg-color: rgb(108, 73, 182);
+    --button-border-color: greenyellow;
+    --add-list-bg: rgb(255, 175, 28);
+    --add-list-border-col: white;
+    --setting-bg-color: rgb(255, 175, 28);
+    --setting-div-bg-color: rgb(255, 175, 28);
+    --setting-list-bg-color: rgb(231, 201, 166);
+    --setting-border-color: black;
+    --setting-choise-bg-color: rgb(89, 76, 116);
+    --setting-selected-bg-color: rgb(108, 73, 182);
+    --setting-shadow-color: rgb(46, 29, 61);
   }
 
   [text-size="14"] {
@@ -46,9 +80,20 @@
     --text-size: 28px;
   }
 
+  [text-style="roboto"] {
+    --text-style: 'Roboto';
+  }
+  [text-style="lora"] {
+    --text-style: 'Lora';
+  }
+  [text-style="Times New Romance"] {
+    --text-style: 'Times New Roman', Times, serif;
+  }
+
   *{
     background-color: var(--body-bg-color);
     color: var(--text-color);
+    font-family: var(--text-style);
   }
 
   body {
@@ -110,6 +155,98 @@
     border: solid 2px var(--add-list-border-col);
     border-radius: 14px;
   }
+
+  .setting_list {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    top: 20%;
+    left: 200%;
+    transform: translateX(-50%);
+    width: 94%;
+    height: calc(1vh*72);
+    background-color: var(--setting-bg-color);
+    margin: 10px 0;
+    z-index: 12;
+    border: solid 2px var(--add-list-border-col);
+    border-radius: 14px;
+  }
+
+  .set_close_div,
+  .set_theme_div,
+  .set_font_style_div,
+  .set_font_size_div {
+    width: 90%;
+    background-color: var(--setting-list-bg-color);
+    color: var(--title-color);
+    margin-top: 20px;
+    margin-bottom: 6px;
+    border-radius: 8px 8px 2px 2px;
+    border-bottom: solid 4px var(--body-element-color);
+  }
+  .set_close_div {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 10%;
+  }
+      .set_close_btn {
+        width: 10%;
+        aspect-ratio: 1/1;
+        border: solid 2px var(--button-border-color);
+        border-radius: 8px;
+        font-weight: bold;
+        margin-right: 10px;
+        background-color: var(--setting-div-bg-color);
+      }
+  
+  .set_theme_div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 10%;
+  }
+      .theme_btn {
+        font-size: 12px;
+        width: 20%;
+        aspect-ratio: 2/1;
+        border: none;
+        border-radius: 6px;
+        background-color: var(--setting-choise-bg-color);
+      }
+  .set_font_style_div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 10%;
+  }
+      .font_style_btn {
+        font-size: 12px;
+        width: 20%;
+        aspect-ratio: 2/1;
+        border: none;
+        border-radius: 6px;
+        background-color: var(--setting-choise-bg-color);
+      }
+  .set_font_size_div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 10%;
+  }
+      .font_size_btn {
+        width: 10%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: var(--setting-choise-bg-color);
+        border: none;
+      }
+
   .input_text {
     font-size: var(--text-size);
     padding: 14px;
@@ -196,7 +333,7 @@
   }
   .read_list p {
     margin: 4px 6px;
-    color: white;
+    color: var(--text-color);
   }
   .text_ {
     font-size: var(--text-size);
@@ -217,4 +354,17 @@
     border-radius: 8px;
     border: solid 4px var(--button-border-color);  
     background-color: rgb(109, 110, 110);
+  }
+
+  .setting_name_ {
+    transform: translateY(20px);
+    background-color: transparent;
+    color: var(--text-color);
+    
+  }
+
+  .selected_setting {
+    background-color: var(--setting-selected-bg-color);
+    box-shadow: 0 0 20px var(--setting-shadow-color);
+    border: solid 2px var(--setting-border-color);
   }

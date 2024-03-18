@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reader (by AKROYIT)</title>
   <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" type="text/css" href="font-style/font_style.css">
   <link rel="stylesheet" type="text/css" href="main.css"> 
 </head>
 <body>
 
   <div class="display" id="display">
+
     <div class="header" id="header">
       <div class="back_div" id="back_div" onclick="NewList();">
          New
@@ -18,7 +20,7 @@
         <div class="translte_panel" id="translate_panel">
         </div>
       </div>
-      <div class="menu_div" id="menu_div">
+      <div class="menu_div" id="menu_div" onclick="SettingsS();">
         Menu
       </div>
     </div>
@@ -29,16 +31,91 @@
         </p>
       </div>
     </div>
+
     <div class="add_list" id="add_list">
       <textarea name="?" id="input_text" cols="30" rows="10" 
-        class="input_text">
-      </textarea>
+        class="input_text"></textarea>
       <button class="start_btn" id="start_btn" onclick="
         StartClicked();">
         Start
       </button>
     </div>
+
   </div>
+
+  <div class="setting_list" id="setting_list">
+    <div class="set_close_div" id="set_close_div">
+      <button class="set_close_btn" id="set_close_btn" onclick="
+        SettingClose();">
+        X
+      </button>
+    </div>
+    <div class="setting_name_">Theme</div>
+    <div class="set_theme_div" id="set_theme_div">
+      <button class="theme_btn" id="theme_dark" onclick="
+        PageThemeChange(`dark`);">
+        Dark
+      </button>
+      <button class="theme_btn" id="theme_light" onclick="
+        PageThemeChange(`light`);">
+        Light
+      </button>
+      <button class="theme_btn" id="theme_read" onclick="
+        PageThemeChange(`read`);">
+        Read
+      </button>
+    </div>
+    <div class="setting_name_">Font style</div>
+    <div class="set_font_style_div" id="set_font_style_div">
+      <button class="font_style_btn" id="font_style_timesnewroman" onclick="
+        FontStyleChange(`timesnewroman`);">
+        Times New R
+      <button class="font_style_btn" id="font_style_roboto" onclick="
+        FontStyleChange(`roboto`);">
+        Roboto
+      </button>
+      <button class="font_style_btn" id="font_style_lora" onclick="
+        FontStyleChange(`lora`);">
+        Lora
+      </button>
+    </div>
+    <div class="setting_name_">Font size</div>
+    <div class="set_font_size_div" id="set_font_size_div">
+      <button class="font_size_btn" id="font_size_14" onclick="
+        FontSizeChange(14);">
+        14
+      </button>
+      <button class="font_size_btn" id="font_size_16" onclick="
+        FontSizeChange(16);">
+        16
+      </button>
+      <button class="font_size_btn" id="font_size_18" onclick="
+        FontSizeChange(18);">
+        18
+      </button>
+      <button class="font_size_btn" id="font_size_20" onclick="
+        FontSizeChange(20);">
+        20
+      </button>
+      <button class="font_size_btn" id="font_size_22" onclick="
+        FontSizeChange(22);">
+        22
+      </button>
+      <button class="font_size_btn" id="font_size_24" onclick="
+        FontSizeChange(24);">
+        24
+      </button>
+      <button class="font_size_btn" id="font_size_26" onclick="
+        FontSizeChange(26);">
+        26
+      </button>
+      <button class="font_size_btn" id="font_size_28" onclick="
+        FontSizeChange(28);">
+        28
+      </button>
+    </div>
+  </div>
+
   <script src="translate.js"></script>
   <script src="main.js"></script>
 </body>
