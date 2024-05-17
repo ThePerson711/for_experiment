@@ -3,120 +3,179 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reader (by AKROYIT)</title>
-  <link rel="icon" type="image/png" href="logo.png">
-  <link rel="stylesheet" type="text/css" href="font-style/font_style.css">
-  <link rel="stylesheet" type="text/css" href="main.css"> 
+  <title>Document</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: aqua;
+    }
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(1vw*45);
+      aspect-ratio: 1/1;
+      border-radius: 10%;
+      border: solid 4px black;
+      background-color: rgb(100, 59, 167);
+      font-size: 48px;
+    }
+    .list {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      background-color: red;
+      width: calc(1vw*40);
+      aspect-ratio: 6/1;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 8px;
+      transform: translate(-50%, calc(1vw*23));
+    }
+    .btn_in {
+      width: calc(1vw*10);
+      aspect-ratio: 3/1;
+      border: solid 2px gray;
+      border-radius: 8px;
+      background-color: rgb(163, 34, 189);
+    }
+  </style>
 </head>
 <body>
-
-  <div class="display" id="display">
-
-    <div class="header" id="header">
-      <div class="back_div" id="back_div" onclick="NewList();">
-         New
-      </div>
-      <div class="logo_div" id="logo_div">
-        <div class="translte_panel" id="translate_panel">
-        </div>
-      </div>
-      <div class="menu_div" id="menu_div" onclick="SettingsS();">
-        Menu
-      </div>
-    </div>
-    
-    <div class="scroll_list" id="scroll_list">
-      <div class="read_list" id="read_list">
-        <p class="text_" id="text_p">
-        </p>
-      </div>
-    </div>
-
-    <div class="add_list" id="add_list">
-      <textarea name="?" id="input_text" cols="30" rows="10" 
-        class="input_text"></textarea>
-      <button class="start_btn" id="start_btn" onclick="
-        StartClicked();">
-        Start
-      </button>
-    </div>
-
+  <button class="btn" id="btn">Card</button>
+  <div class="list">
+    <button class="btn_in" onclick="BtnClick();">Check</button>
+    <button class="btn_in" onclick="sound();">Sound</button>
+    <button class="btn_in" onclick="ChangeL();" id="chlan">&#x21B9; KR</button>
   </div>
 
-  <div class="setting_list" id="setting_list">
-    <div class="set_close_div" id="set_close_div">
-      <button class="set_close_btn" id="set_close_btn" onclick="
-        SettingClose();">
-        X
-      </button>
-    </div>
-    <div class="setting_name_">Theme</div>
-    <div class="set_theme_div" id="set_theme_div">
-      <button class="theme_btn" id="theme_dark" onclick="
-        PageThemeChange(`dark`);">
-        Dark
-      </button>
-      <button class="theme_btn" id="theme_light" onclick="
-        PageThemeChange(`light`);">
-        Light
-      </button>
-      <button class="theme_btn" id="theme_read" onclick="
-        PageThemeChange(`read`);">
-        Read
-      </button>
-    </div>
-    <div class="setting_name_">Font style</div>
-    <div class="set_font_style_div" id="set_font_style_div">
-      <button class="font_style_btn" id="font_style_timesnewroman" onclick="
-        FontStyleChange(`timesnewroman`);">
-        Times New R
-      <button class="font_style_btn" id="font_style_roboto" onclick="
-        FontStyleChange(`roboto`);">
-        Roboto
-      </button>
-      <button class="font_style_btn" id="font_style_lora" onclick="
-        FontStyleChange(`lora`);">
-        Lora
-      </button>
-    </div>
-    <div class="setting_name_">Font size</div>
-    <div class="set_font_size_div" id="set_font_size_div">
-      <button class="font_size_btn" id="font_size_14" onclick="
-        FontSizeChange(14);">
-        14
-      </button>
-      <button class="font_size_btn" id="font_size_16" onclick="
-        FontSizeChange(16);">
-        16
-      </button>
-      <button class="font_size_btn" id="font_size_18" onclick="
-        FontSizeChange(18);">
-        18
-      </button>
-      <button class="font_size_btn" id="font_size_20" onclick="
-        FontSizeChange(20);">
-        20
-      </button>
-      <button class="font_size_btn" id="font_size_22" onclick="
-        FontSizeChange(22);">
-        22
-      </button>
-      <button class="font_size_btn" id="font_size_24" onclick="
-        FontSizeChange(24);">
-        24
-      </button>
-      <button class="font_size_btn" id="font_size_26" onclick="
-        FontSizeChange(26);">
-        26
-      </button>
-      <button class="font_size_btn" id="font_size_28" onclick="
-        FontSizeChange(28);">
-        28
-      </button>
-    </div>
-  </div>
+  <script> 
+    let ar = [
+    {
+        kr: `사과`,
+        uz: `olma`
+      },
+      {
+        kr: `과일`,
+        uz: `meva`
+      },
+      {
+        kr: `열매`,
+        uz: `meva`
+      },
+      {
+        kr: `배`,
+        uz: `nok`
+      },
+      {
+        kr: `포도`,
+        uz: `uzum`
+      },
+      {
+        kr: `바나나`,
+        uz: `banan`
+      },
+      {
+        kr: `체리`,
+        uz: `gilos`
+      },
+      {
+        kr: `살구`,
+        uz: `o'rik`
+      },
+      {
+        kr: `복숭아`,
+        uz: `shaftoli`
+      },
+      {
+        kr: `성유`,
+        uz: `anor`
+      },
+      {
+        kr: `무과가`,
+        uz: `anjir`
+      }
+    ];
 
-  <script src="translate.js"></script>
-  <script src="main.js"></script>
+    let last = {
+        kr: `과일`,
+        uz: `meva`
+      };
+    let LangTo = true;
+    const btn = document.getElementById("btn");
+
+    BtnClick();
+
+    function ChangeL() {
+      LangTo = !LangTo;
+      if (LangTo) {
+        document.getElementById("chlan").innerHTML = `&#x21B9; KR`;
+      } else {
+        document.getElementById("chlan").innerHTML = `&#x21B9; UZ`;
+      }
+      BtnClick();
+    }
+
+    function BtnClick() {
+      btn.style.background = "green";
+      if (LangTo) {
+        btn.innerHTML = last.uz;
+      } else {
+        btn.innerHTML = last.kr;
+        sound(last.kr);
+      }
+                                                    //  ar.length
+      last = ar[((Math.ceil(Math.random()*ar.length))-1)];
+      setTimeout(() => {
+        btn.style.background = "rgb(100, 59, 167)";
+        if (LangTo) {
+        btn.innerHTML = last.kr;
+        sound();
+      } else {
+        btn.innerHTML = last.uz;
+      }
+      }, 1500);
+    }
+
+    function sound() {
+      TextToSpeech(last.kr, "kr");
+    }
+
+
+        // Converts Text to Speech {en,uz,ru,kr}
+        function TextToSpeech(text_, lang_) {
+      if ('speechSynthesis' in window) {
+        // Create a new SpeechSynthesisUtterance object
+        var utterance = new SpeechSynthesisUtterance();
+        // Set the text to be spoken
+        utterance.text = text_;
+        // Specify Korean as the language
+        if (lang_ === "kr") {
+          utterance.lang = 'ko-KR';
+        } else if (lang_ === "uz") {
+          utterance.lang = 'uz-UZ'; // Set language to Uzbek
+        } else if (lang_ === "en") {
+          utterance.lang = 'en-US'; // Set language to English
+        } else if (lang_ === "ru") {
+          utterance.lang = 'ru-RU'; // Set language to Russian
+        }
+        // Speak the text
+        speechSynthesis.speak(utterance);
+      } else {
+        // If speech synthesis is not supported, alert the user
+        alert('Sorry, your browser does not support speech synthesis.');
+      }
+    }
+
+
+
+  </script>
 </body>
 </html>
