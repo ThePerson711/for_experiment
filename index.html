@@ -82,7 +82,10 @@
     <input id="kr_inp" type="text" placeholder="Korean Word">
     <p class="top_p">Uzbek</p>
     <input id="uz_inp" type="text" placeholder="Uzbek Word">
-    <button onclick="ADDWORD();">Add</button>
+     <div class="fd">
+      <button onclick="ClearAll();">ClearAll</button>
+      <button onclick="ADDWORD();">Add</button>
+    </div>
   </div>
   <button class="btn" id="btn">Card</button>
   <div class="list">
@@ -155,6 +158,11 @@
     const btn = document.getElementById("btn");
 
     BtnClick();
+
+    function ClearAll() {
+      ar = [];
+      localStorage.setItem("Data_For_Voc_Kr", JSON.stringify(ar))
+    }
 
     function ADDWORD() {
       ar.push({
