@@ -20,6 +20,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       width: calc(1vw*45);
+      width: 300px;
       aspect-ratio: 1/1;
       border-radius: 10%;
       border: solid 4px black;
@@ -32,12 +33,13 @@
       align-items: center;
       background-color: red;
       width: calc(1vw*40);
+      width: 270px;
       aspect-ratio: 6/1;
       position: absolute;
       top: 50%;
       left: 50%;
       border-radius: 8px;
-      transform: translate(-50%, calc(1vw*23));
+      transform: translate(-50%, calc(160px));
     }
     .btn_in {
       width: calc(1vw*10);
@@ -46,9 +48,42 @@
       border-radius: 8px;
       background-color: rgb(163, 34, 189);
     }
+    .top_lst {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 280px;
+      background-color: aquamarine;
+      border-radius: 14px;
+      border: double 6px gray;
+    }
+    .top_p {
+      margin: 2px;
+      font-size: 20px;
+    }
+    .top_lst input {
+      margin: 2px;
+      font-size: 20px;
+    }
+    .top_lst button {
+      width: 100px;
+      height: 28px;
+      border-radius: 8px;
+      background-color: rgb(233, 154, 154);
+      font-size: 20px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
+  <div class="top_lst">
+    <p class="top_p">Korean</p>
+    <input id="kr_inp" type="text" placeholder="Korean Word">
+    <p class="top_p">Uzbek</p>
+    <input id="uz_inp" type="text" placeholder="Uzbek Word">
+    <button onclick="ADDWORD();">Add</button>
+  </div>
   <button class="btn" id="btn">Card</button>
   <div class="list">
     <button class="btn_in" onclick="BtnClick();">Check</button>
@@ -104,6 +139,14 @@
       }
     ];
 
+     ar = [];
+      if(localStorage.getItem("Data_For_Voc_Kr") !== null) {
+        ar = JSON.parse(localStorage.getItem("Data_For_Voc_Kr"));
+      } else {
+        console.log("Nothing")
+      }
+
+
     let last = {
         kr: `과일`,
         uz: `meva`
@@ -112,6 +155,14 @@
     const btn = document.getElementById("btn");
 
     BtnClick();
+
+    function ADDWORD() {
+      ar.push({
+        kr: (document.getElementById("kr_inp").value),
+        uz: (document.getElementById("uz_inp").value)
+      });
+      localStorage.setItem("Data_For_Voc_Kr", JSON.stringify(ar))
+    }
 
     function ChangeL() {
       LangTo = !LangTo;
