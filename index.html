@@ -102,8 +102,8 @@ function handleTouchMove(stick, direction, evt) {
     var newY = evt.touches[0].clientY - initialY[stick.id];
 
     var boundingRect = stick.parentElement.getBoundingClientRect();
-    var maxX = boundingRect.width - stick.offsetWidth;
-    var maxY = boundingRect.height - stick.offsetHeight;
+    var maxX = boundingRect.width;// - stick.offsetWidth;
+    var maxY = boundingRect.height;// - stick.offsetHeight;
 
     newX = Math.max(0, Math.min(newX, maxX));
     newY = Math.max(0, Math.min(newY, maxY));
@@ -117,7 +117,14 @@ function handleTouchMove(stick, direction, evt) {
     var deltaX = newX - stick.offsetLeft;
     var deltaY = newY - stick.offsetTop;
 
-    if (deltaX < -5) {
+    if (newX < maxX/2) {
+      direction.innerHTML = "Direction: Down";
+    } 
+    if (newX > maxX/2) {
+      direction.innerHTML = "Direction: Up";
+    }
+
+    /*if (deltaX < -5) {
         direction.innerHTML = "Direction: Left";
     } else if (deltaX > 5) {
         direction.innerHTML = "Direction: Right";
@@ -125,7 +132,7 @@ function handleTouchMove(stick, direction, evt) {
         direction.innerHTML = "Direction: Up";
     } else if (deltaY > 5) {
         direction.innerHTML = "Direction: Down";
-    }
+    }*/
 
     evt.preventDefault();
 }
