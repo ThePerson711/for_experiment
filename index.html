@@ -51,18 +51,32 @@
 </head>
 <body>
 
-<div class="joystick">
-  <div class="stick" id="stick"></div>
-</div>
-<p id="direction_1">Direction</p>
+  <div class="lll">
+    <div class="joystick">
+      <div class="stick" id="stick"></div>
+    </div>
+    <p id="direction_1">Direction</p>
+  </div>
+  <div class="lll">
+    <div class="joystick">
+      <div class="stick" id="stick2"></div>
+    </div>
+    <p id="direction_2">Direction</p>
+  </div>
 <script>
-var stick = document.getElementById('stick');
 
 var stick = document.getElementById('stick');
+
+var stick2 = document.getElementById('stick2');
 
 stick.addEventListener('touchstart', handleTouchStart, false);
 stick.addEventListener('touchmove', handleTouchMove, false);
 stick.addEventListener('touchend', handleTouchEnd, false);
+
+stick2.addEventListener('touchstart', handleTouchStart, false);
+stick2.addEventListener('touchmove', handleTouchMove, false);
+stick2.addEventListener('touchend', handleTouchEnd, false);
+
 
 var initialX = null;
 var initialY = null;
@@ -84,28 +98,59 @@ function handleTouchMove(evt) {
     var maxX = boundingRect.width - stick.offsetWidth;
     var maxY = boundingRect.height - stick.offsetHeight;
 
+    var boundingRect2 = stick2.parentElement.getBoundingClientRect();
+    var maxX2 = boundingRect.width - stick2.offsetWidth;
+    var maxY2 = boundingRect.height - stick2.offsetHeight;
+
     newX = Math.max(0, Math.min(newX, maxX));
     newY = Math.max(0, Math.min(newY, maxY));
+
+    newX2 = Math.max(0, Math.min(newX2, maxX2));
+    newY2 = Math.max(0, Math.min(newY2, maxY2));
 
     var deltaX = newX - stick.offsetLeft;
     var deltaY = newY - stick.offsetTop;
 
+    var deltaX2 = newX2 - stick2.offsetLeft;
+    var deltaY2 = newY2 - stick2.offsetTop;
+
     stick.style.left = newX + 'px';
     stick.style.top = newY + 'px';
 
+    stick2.style.left = newX2 + 'px';
+    stick2.style.top = newY2 + 'px';
+
+
     if (deltaX < -5) {
-        document.getElementById("direction_1").innerHTML = 
+        document.getElementById("direction_2").innerHTML = 
           `Direction: left`;
     } else if (deltaX > 5) {
-      document.getElementById("direction_1").innerHTML = 
+      document.getElementById("direction_2").innerHTML = 
           `Direction: right`;
     }
 
     if (deltaY < -5) {
-      document.getElementById("direction_1").innerHTML = 
+      document.getElementById("direction_2").innerHTML = 
           `Direction: up`;
     } else if (deltaY > 5) {
-      document.getElementById("direction_1").innerHTML = 
+      document.getElementById("direction_2").innerHTML = 
+          `Direction: down`;
+    }
+
+    //
+    if (deltaX2 < -5) {
+        document.getElementById("direction_2").innerHTML = 
+          `Direction: left`;
+    } else if (deltaX2 > 5) {
+      document.getElementById("direction_2").innerHTML = 
+          `Direction: right`;
+    }
+
+    if (deltaY2 < -5) {
+      document.getElementById("direction_2").innerHTML = 
+          `Direction: up`;
+    } else if (deltaY2 > 5) {
+      document.getElementById("direction_2").innerHTML = 
           `Direction: down`;
     }
 
