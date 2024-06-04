@@ -50,117 +50,84 @@
 </style>
 </head>
 <body>
-
-  <div class="lll">
+  <div class="container">
     <div class="joystick">
-      <div class="stick" id="stick"></div>
+      <div class="stick" id="stick1"></div>
+      <p id="direction1">Direction: Center</p>
     </div>
-    <p id="direction_1">Direction</p>
-  </div>
-  <div class="lll">
     <div class="joystick">
       <div class="stick" id="stick2"></div>
+      <p id="direction2">Direction: Center</p>
     </div>
-    <p id="direction_2">Direction</p>
   </div>
+
 <script>
 
-var stick = document.getElementById('stick');
-
+var stick1 = document.getElementById('stick1');
 var stick2 = document.getElementById('stick2');
 
-stick.addEventListener('touchstart', handleTouchStart, false);
-stick.addEventListener('touchmove', handleTouchMove, false);
-stick.addEventListener('touchend', handleTouchEnd, false);
+var direction1 = document.getElementById('direction1');
+var direction2 = document.getElementById('direction2');
 
-stick2.addEventListener('touchstart', handleTouchStart, false);
-stick2.addEventListener('touchmove', handleTouchMove, false);
-stick2.addEventListener('touchend', handleTouchEnd, false);
+stick1.addEventListener('touchstart', handleTouchStart.bind(null, stick1, direction1), false);
+stick1.addEventListener('touchmove', handleTouchMove.bind(null, stick1, direction1), false);
+stick1.addEventListener('touchend', handleTouchEnd.bind(null, stick1, direction1), false);
 
+stick2.addEventListener('touchstart', handleTouchStart.bind(null, stick2, direction2), false);
+stick2.addEventListener('touchmove', handleTouchMove.bind(null, stick2, direction2), false);
+stick2.addEventListener('touchend', handleTouchEnd.bind(null, stick2, direction2), false);
 
-var initialX = null;
-var initialY = null;
+var initialX = {};
+var initialY = {};
 
-function handleTouchStart(evt) {
-    initialX = evt.touches[0].clientX - stick.offsetLeft;
-    initialY = evt.touches[0].clientY - stick.offsetTop;
+function handleTouchStart(stick, direction, evt) {
+    initialX[stick.id] = evt.touches[0].clientX - stick.offsetLeft;
+    initialY[stick.id] = evt.touches[0].clientY - stick.offsetTop;
+    direction.textContent = "Direction: ";
 }
 
-function handleTouchMove(evt) {
-    if (initialX === null || initialY === null) {
+function handleTouchMove(stick, direction, evt) {
+    if (initialX[stick.id] === undefined || initialY[stick.id] === undefined) {
         return;
     }
 
-    var newX = evt.touches[0].clientX - initialX;
-    var newY = evt.touches[0].clientY - initialY;
+    var newX = evt.touches[0].clientX - initialX[stick.id];
+    var newY = evt.touches[0].clientY - initialY[stick.id];
 
     var boundingRect = stick.parentElement.getBoundingClientRect();
     var maxX = boundingRect.width - stick.offsetWidth;
     var maxY = boundingRect.height - stick.offsetHeight;
 
-    var boundingRect2 = stick2.parentElement.getBoundingClientRect();
-    var maxX2 = boundingRect.width - stick2.offsetWidth;
-    var maxY2 = boundingRect.height - stick2.offsetHeight;
-
     newX = Math.max(0, Math.min(newX, maxX));
     newY = Math.max(0, Math.min(newY, maxY));
-
-    newX2 = Math.max(0, Math.min(newX2, maxX2));
-    newY2 = Math.max(0, Math.min(newY2, maxY2));
-
-    var deltaX = newX - stick.offsetLeft;
-    var deltaY = newY - stick.offsetTop;
-
-    var deltaX2 = newX2 - stick2.offsetLeft;
-    var deltaY2 = newY2 - stick2.offsetTop;
 
     stick.style.left = newX + 'px';
     stick.style.top = newY + 'px';
 
-    stick2.style.left = newX2 + 'px';
-    stick2.style.top = newY2 + 'px';
-
+    var deltaX = newX - stick.offsetLeft;
+    var deltaY = newY - stick.offsetTop;
 
     if (deltaX < -5) {
-        document.getElementById("direction_2").innerHTML = 
-          `Direction: left`;
+        direction.textContent = "Direction: Left";
     } else if (deltaX > 5) {
-      document.getElementById("direction_2").innerHTML = 
-          `Direction: right`;
-    }
-
-    if (deltaY < -5) {
-      document.getElementById("direction_2").innerHTML = 
-          `Direction: up`;
+        direction.textContent = "Direction: Right";
+    } else if (deltaY < -5) {
+        direction.textContent = "Direction: Up";
     } else if (deltaY > 5) {
-      document.getElementById("direction_2").innerHTML = 
-          `Direction: down`;
-    }
-
-    //
-    if (deltaX2 < -5) {
-        document.getElementById("direction_2").innerHTML = 
-          `Direction: left`;
-    } else if (deltaX2 > 5) {
-      document.getElementById("direction_2").innerHTML = 
-          `Direction: right`;
-    }
-
-    if (deltaY2 < -5) {
-      document.getElementById("direction_2").innerHTML = 
-          `Direction: up`;
-    } else if (deltaY2 > 5) {
-      document.getElementById("direction_2").innerHTML = 
-          `Direction: down`;
+        direction.textContent = "Direction: Down";
     }
 
     evt.preventDefault();
 }
 
-function handleTouchEnd(evt) {
-    initialX = null;
-    initialY = null;
+function handleTouchEnd(stick, direction) {
+    initialX[stick.id] = undefined;
+    initialY[stick.id] = undefined;
+    stick.style.left = '50%';
+    stick.style.top = '50%';
+    direction.textContent = "Direction: Center";
 }
+
 
 
 </script>
