@@ -399,25 +399,37 @@ function handleTouchMove(stick, direction, evt) {
     if (newY < maxY/2 && 
       ((newX <= maxX/2 && newX/newY > 1) || (newX > maxX/2 && (maxX-newX)/newY > 1))) {
       //direction.innerHTML = "Direction: UP";
-      Player1.direction = 3;
+      Player1.up = false;
+      Player1.right = false;
+      Player1.down = false;
+      Player1.left = true;
     } 
     //
     if (newY > maxY/2 && 
       ((newX <= maxX/2 && newX/(maxY-newY) > 1) || (newX > maxX/2 && (maxX-newX)/(maxY-newY) > 1))) {
       //direction.innerHTML = "Direction: Down";
-      Player1.direction = 1;
+      Player1.up = false;
+      Player1.right = true;
+      Player1.down = false;
+      Player1.left = false;
     } 
     //
     if (newX < maxX/2 && 
       ((newY <= maxY/2 && newY/newX > 1) || (newY > maxY/2 && (maxY-newY)/newX > 1))) {
       //direction.innerHTML = "Direction: LEFT";
-      Player1.direction = 2;
+      Player1.up = false;
+      Player1.right = false;
+      Player1.down = true;
+      Player1.left = false;
     } 
     //
     if (newX > maxX/2 && 
       ((newY <= maxY/2 && newY/(maxX-newX) > 1) || (newY > maxY/2 && (maxY-newY)/(maxX-newX) > 1))) {
       //direction.innerHTML = "Direction: RIGHT";
-      Player1.direction = 0;
+      Player1.up = true;
+      Player1.right = false;
+      Player1.down = false;
+      Player1.left = false;
     } 
     evt.preventDefault();
 }
