@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PlayStation Joystick</title>
 <style>
-    .joystick {
+    .container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.joystick {
   width: 200px;
   height: 200px;
   background: #000;
@@ -25,88 +30,101 @@
   transform: translate(-50%, -50%);
 }
 
-.stick::before {
-  content: "";
-  width: 10px;
-  height: 10px;
-  background: #000;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.stick::after {
-  content: "";
-  width: 100%;
-  height: 2px;
-  background: #000;
-  position: absolute;
-  top: 50%;
-  left: 0;
-}
-.par {
-  color: red;
-  left: 100px;
-  font-size: 16px;
-  border: solid 4px blue;
+.direction {
+  color: white;
+  text-align: center;
 }
 
 </style>
 </head>
 <body>
-  <div class="container">
-    <div class="joystick">
-      <div class="stick" id="stick1"></div>
-      <p class="par" id="direction1">Direction: Center</p>
-    </div>
-    </div>
-    <div class="container">
-    <div class="joystick">
-      <div class="stick" id="stick2"></div>
-      <p class="par" id="direction2">Direction: Center</p>
-    </div>
+
+<div class="container">
+  <div class="joystick" id="joystick1">
+    <div class="stick" id="stick1"></div>
+    <p class="direction" id="direction1">Direction: Center</p>
   </div>
-  <p id="x_">x:</p>
-  <p id="y_">y:</p>
-  <p>version: 1:07</p>
+  <div class="joystick" id="joystick2">
+    <div class="stick" id="stick2"></div>
+    <p class="direction" id="direction2">Direction: Center</p>
+  </div>
+</div>
+
 <script>
+    var sticks = document.querySelectorAll('.stick');
+var directions = document.querySelectorAll('.direction');
 
-var stick1 = document.getElementById('stick1');
-var stick2 = document.getElementById('stick2');
+sticks.forEach(function(stick, index) {
+    stick.addEventListener('mousedown', handleMouseDown.bind(null, stick, directions[index]), false);
+    stick.addEventListener('touchstart', handleTouchStart.bind(null, stick, directions[index]), false);
+});
 
-var direction1 = document.getElementById('direction1');
-var direction2 = document.getElementById('direction2');
+function handleMouseDown(stick, direction, evt) {
+    stick.style.position = 'absolute';
+    stick.style.zIndex = '9999';
 
-stick1.addEventListener('touchstart', handleTouchStart.bind(null, stick1, direction1), false);
-stick1.addEventListener('touchmove', handleTouchMove.bind(null, stick1, direction1), false);
-stick1.addEventListener('touchend', handleTouchEnd.bind(null, stick1, direction1), false);
+    document.addEventListener('mousemove', handleMouseMove.bind(null, stick, direction), false);
+    document.addEventListener('mouseup', handleMouseUp.bind(null, stick, direction), false);
+}
 
-stick2.addEventListener('touchstart', handleTouchStart.bind(null, stick2, direction2), false);
-stick2.addEventListener('touchmove', handleTouchMove.bind(null, stick2, direction2), false);
-stick2.addEventListener('touchend', handleTouchEnd.bind(null, stick2, direction2), false);
+function handleMouseMove(stick, direction, evt) {
+    var boundingRect = stick.parentElement.getBoundingClientRect();
+    var offsetX = boundingRect.left + boundingRect.width / 2;
+    var offsetY = boundingRect.top + boundingRect.height / 2;
 
-var initialX = {};
-var initialY = {};
+    var newX = evt.clientX - offsetX;
+    var newY = evt.clientY - offsetY;
+
+    var distance = Math.sqrt(newX * newX + newY * newY);
+    var maxDistance = boundingRect.width / 2 - stick.offsetWidth / 2;
+
+    if (distance > maxDistance) {
+        var scale = maxDistance / distance;
+        newX *= scale;
+        newY *= scale;
+    }
+
+    stick.style.left = newX + 'px';
+    stick.style.top = newY + 'px';
+
+    var deltaX = newX - (boundingRect.width / 2 - stick.offsetWidth / 2);
+    var deltaY = newY - (boundingRect.height / 2 - stick.offsetHeight / 2);
+
+    updateDirection(direction, deltaX, deltaY);
+}
+
+function handleMouseUp(stick, direction, evt) {
+    document.removeEventListener('mousemove', handleMouseMove, false);
+    document.removeEventListener('mouseup', handleMouseUp, false);
+    stick.style.position = 'absolute';
+    stick.style.left = '50%';
+    stick.style.top = '50%';
+    stick.style.zIndex = 'initial';
+    direction.textContent = "Direction: Center";
+}
 
 function handleTouchStart(stick, direction, evt) {
-    initialX[stick.id] = evt.touches[0].clientX - stick.offsetLeft;
-    initialY[stick.id] = evt.touches[0].clientY - stick.offsetTop;
-   // direction.innerHTML = "Touch";
+    var touch = evt.touches[0];
+
+    stick.style.position = 'absolute';
+    stick.style.zIndex = '9999';
+
+    stick.initialX = touch.clientX - stick.offsetLeft;
+    stick.initialY = touch.clientY - stick.offsetTop;
+
+    document.addEventListener('touchmove', handleTouchMove.bind(null, stick, direction), false);
+    document.addEventListener('touchend', handleTouchEnd.bind(null, stick, direction), false);
 }
 
 function handleTouchMove(stick, direction, evt) {
-    if (initialX[stick.id] === undefined || initialY[stick.id] === undefined) {
-        return;
-    }
+    var touch = evt.touches[0];
 
-    var newX = evt.touches[0].clientX - initialX[stick.id];
-    var newY = evt.touches[0].clientY - initialY[stick.id];
+    var newX = touch.clientX - stick.initialX;
+    var newY = touch.clientY - stick.initialY;
 
     var boundingRect = stick.parentElement.getBoundingClientRect();
-    var maxX = boundingRect.width;// - stick.offsetWidth;
-    var maxY = boundingRect.height;// - stick.offsetHeight;
+    var maxX = boundingRect.width - stick.offsetWidth;
+    var maxY = boundingRect.height - stick.offsetHeight;
 
     newX = Math.max(0, Math.min(newX, maxX));
     newY = Math.max(0, Math.min(newY, maxY));
@@ -114,54 +132,37 @@ function handleTouchMove(stick, direction, evt) {
     stick.style.left = newX + 'px';
     stick.style.top = newY + 'px';
 
-    document.getElementById("x_").innerHTML = newX;
-    document.getElementById("y_").innerHTML = newY;
+    var deltaX = newX - (boundingRect.width / 2 - stick.offsetWidth / 2);
+    var deltaY = newY - (boundingRect.height / 2 - stick.offsetHeight / 2);
 
-    var deltaX = newX - stick.offsetLeft;
-    var deltaY = newY - stick.offsetTop;
-
-    if (newY < maxY/2 && 
-      ((newX <= maxX/2 && newX/newY > 1) || (newX > maxX/2 && (maxX-newX)/newY > 1))) {
-      direction.innerHTML = "Direction: UP";
-    } 
-    //
-    if (newY > maxY/2 && 
-      ((newX <= maxX/2 && newX/(maxY-newY) > 1) || (newX > maxX/2 && (maxX-newX)/(maxY-newY) > 1))) {
-      direction.innerHTML = "Direction: Down";
-    } 
-    //
-    if (newX < maxX/2 && 
-      ((newY <= maxY/2 && newY/newX > 1) || (newY > maxY/2 && (maxY-newY)/newX > 1))) {
-      direction.innerHTML = "Direction: LEFT";
-    } 
-    //
-    if (newX > maxX/2 && 
-      ((newY <= maxY/2 && newY/(maxX-newX) > 1) || (newY > maxY/2 && (maxY-newY)/(maxX-newX) > 1))) {
-      direction.innerHTML = "Direction: RIGHT";
-    } 
-
-    /*if (deltaX < -5) {
-        direction.innerHTML = "Direction: Left";
-    } else if (deltaX > 5) {
-        direction.innerHTML = "Direction: Right";
-    } else if (deltaY < -5) {
-        direction.innerHTML = "Direction: Up";
-    } else if (deltaY > 5) {
-        direction.innerHTML = "Direction: Down";
-    }*/
+    updateDirection(direction, deltaX, deltaY);
 
     evt.preventDefault();
 }
 
-function handleTouchEnd(stick, direction) {
-    initialX[stick.id] = undefined;
-    initialY[stick.id] = undefined;
+function handleTouchEnd(stick, direction, evt) {
+    document.removeEventListener('touchmove', handleTouchMove, false);
+    document.removeEventListener('touchend', handleTouchEnd, false);
+    stick.style.position = 'absolute';
     stick.style.left = '50%';
     stick.style.top = '50%';
-    direction.innerHTML = "Direction: Center";
+    stick.style.zIndex = 'initial';
+    direction.textContent = "Direction: Center";
 }
 
-
+function updateDirection(direction, deltaX, deltaY) {
+    if (deltaX < -5) {
+        direction.textContent = "Direction: Left";
+    } else if (deltaX > 5) {
+        direction.textContent = "Direction: Right";
+    } else if (deltaY < -5) {
+        direction.textContent = "Direction: Up";
+    } else if (deltaY > 5) {
+        direction.textContent = "Direction: Down";
+    } else {
+        direction.textContent = "Direction: Center";
+    }
+}
 
 </script>
 </body>
