@@ -1,169 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PlayStation Joystick</title>
-<style>
-    .container {
-  display: flex;
-  justify-content: space-around;
-}
-
-.joystick {
-  width: 200px;
-  height: 200px;
-  background: #000;
-  border-radius: 50%;
-  position: relative;
-  overflow: hidden;
-}
-
-.stick {
-  width: 50px;
-  height: 50px;
-  background: #fff;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.direction {
-  color: white;
-  text-align: center;
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanks Mobile</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="container">
-  <div class="joystick" id="joystick1">
-    <div class="stick" id="stick1"></div>
-    <p class="direction" id="direction1">Direction: Center</p>
-  </div>
-  <div class="joystick" id="joystick2">
-    <div class="stick" id="stick2"></div>
-    <p class="direction" id="direction2">Direction: Center</p>
-  </div>
-</div>
-
-<script>
-    var sticks = document.querySelectorAll('.stick');
-var directions = document.querySelectorAll('.direction');
-
-sticks.forEach(function(stick, index) {
-    stick.addEventListener('mousedown', handleMouseDown.bind(null, stick, directions[index]), false);
-    stick.addEventListener('touchstart', handleTouchStart.bind(null, stick, directions[index]), false);
-});
-
-function handleMouseDown(stick, direction, evt) {
-    stick.style.position = 'absolute';
-    stick.style.zIndex = '9999';
-
-    document.addEventListener('mousemove', handleMouseMove.bind(null, stick, direction), false);
-    document.addEventListener('mouseup', handleMouseUp.bind(null, stick, direction), false);
-}
-
-function handleMouseMove(stick, direction, evt) {
-    var boundingRect = stick.parentElement.getBoundingClientRect();
-    var offsetX = boundingRect.left + boundingRect.width / 2;
-    var offsetY = boundingRect.top + boundingRect.height / 2;
-
-    var newX = evt.clientX - offsetX;
-    var newY = evt.clientY - offsetY;
-
-    var distance = Math.sqrt(newX * newX + newY * newY);
-    var maxDistance = boundingRect.width / 2 - stick.offsetWidth / 2;
-
-    if (distance > maxDistance) {
-        var scale = maxDistance / distance;
-        newX *= scale;
-        newY *= scale;
-    }
-
-    stick.style.left = newX + 'px';
-    stick.style.top = newY + 'px';
-
-    var deltaX = newX - (boundingRect.width / 2 - stick.offsetWidth / 2);
-    var deltaY = newY - (boundingRect.height / 2 - stick.offsetHeight / 2);
-
-    updateDirection(direction, deltaX, deltaY);
-}
-
-function handleMouseUp(stick, direction, evt) {
-    document.removeEventListener('mousemove', handleMouseMove, false);
-    document.removeEventListener('mouseup', handleMouseUp, false);
-    stick.style.position = 'absolute';
-    stick.style.left = '50%';
-    stick.style.top = '50%';
-    stick.style.zIndex = 'initial';
-    direction.textContent = "Direction: Center";
-}
-
-function handleTouchStart(stick, direction, evt) {
-    var touch = evt.touches[0];
-
-    stick.style.position = 'absolute';
-    stick.style.zIndex = '9999';
-
-    stick.initialX = touch.clientX - stick.offsetLeft;
-    stick.initialY = touch.clientY - stick.offsetTop;
-
-    document.addEventListener('touchmove', handleTouchMove.bind(null, stick, direction), false);
-    document.addEventListener('touchend', handleTouchEnd.bind(null, stick, direction), false);
-}
-
-function handleTouchMove(stick, direction, evt) {
-    var touch = evt.touches[0];
-
-    var newX = touch.clientX - stick.initialX;
-    var newY = touch.clientY - stick.initialY;
-
-    var boundingRect = stick.parentElement.getBoundingClientRect();
-    var maxX = boundingRect.width - stick.offsetWidth;
-    var maxY = boundingRect.height - stick.offsetHeight;
-
-    newX = Math.max(0, Math.min(newX, maxX));
-    newY = Math.max(0, Math.min(newY, maxY));
-
-    stick.style.left = newX + 'px';
-    stick.style.top = newY + 'px';
-
-    var deltaX = newX - (boundingRect.width / 2 - stick.offsetWidth / 2);
-    var deltaY = newY - (boundingRect.height / 2 - stick.offsetHeight / 2);
-
-    updateDirection(direction, deltaX, deltaY);
-
-    evt.preventDefault();
-}
-
-function handleTouchEnd(stick, direction, evt) {
-    document.removeEventListener('touchmove', handleTouchMove, false);
-    document.removeEventListener('touchend', handleTouchEnd, false);
-    stick.style.position = 'absolute';
-    stick.style.left = '50%';
-    stick.style.top = '50%';
-    stick.style.zIndex = 'initial';
-    direction.textContent = "Direction: Center";
-}
-
-function updateDirection(direction, deltaX, deltaY) {
-    if (deltaX < -5) {
-        direction.textContent = "Direction: Left";
-    } else if (deltaX > 5) {
-        direction.textContent = "Direction: Right";
-    } else if (deltaY < -5) {
-        direction.textContent = "Direction: Up";
-    } else if (deltaY > 5) {
-        direction.textContent = "Direction: Down";
-    } else {
-        direction.textContent = "Direction: Center";
-    }
-}
-
-</script>
+    <div class="screen">
+        <div class="top">
+            ??
+        </div>
+        <div class="center">
+            <div class="panel_p">
+                <div class="planel">
+                    <div class="palyer1" id="palyer1">
+                        <img src="tank_1.png" alt="Tank1" class="tank_img tank_1" id="tank_1">
+                    </div>
+                    <div class="palyer1" id="palyer2">
+                        <img src="tank_2.png" alt="Tank2" class="tank_img tank_2" id="tank_2">
+                    </div>
+                    <canvas id="canvas" class="canvas" width="1000px" height="1000px"></canvas>    
+                </div>    
+            </div>
+        </div>
+        <div class="bottom">
+            <button  onclick="PlayerShoot(1);">
+                Shoot
+            </button>
+            <div class="joystick">
+                <div class="stick" id="stick1"></div>
+                <p class="par" id="direction1">Direction: Center</p>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
