@@ -404,6 +404,7 @@ function handleTouchMove(stick, direction, evt) {
       Player1.right = false;
       Player1.down = false;
       Player1.left = true;
+      document.getElementById("indik").innerHTML = "up";
     } 
     //
     if (newY > maxY/2 && 
@@ -413,6 +414,7 @@ function handleTouchMove(stick, direction, evt) {
       Player1.right = true;
       Player1.down = false;
       Player1.left = false;
+      document.getElementById("indik").innerHTML = "down";
     } 
     //
     if (newX < maxX/2 && 
@@ -422,6 +424,7 @@ function handleTouchMove(stick, direction, evt) {
       Player1.right = false;
       Player1.down = true;
       Player1.left = false;
+      document.getElementById("indik").innerHTML = "left";
     } 
     //
     if (newX > maxX/2 && 
@@ -431,6 +434,7 @@ function handleTouchMove(stick, direction, evt) {
       Player1.right = false;
       Player1.down = false;
       Player1.left = false;
+      document.getElementById("indik").innerHTML = "right";
     } 
     evt.preventDefault();
 }
