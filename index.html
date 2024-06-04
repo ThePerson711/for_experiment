@@ -66,7 +66,8 @@
       <p class="par" id="direction2">Direction: Center</p>
     </div>
   </div>
-
+  <p id="x_">x:</p>
+  <p id="y_">y:</p>
 <script>
 
 var stick1 = document.getElementById('stick1');
@@ -89,7 +90,7 @@ var initialY = {};
 function handleTouchStart(stick, direction, evt) {
     initialX[stick.id] = evt.touches[0].clientX - stick.offsetLeft;
     initialY[stick.id] = evt.touches[0].clientY - stick.offsetTop;
-    direction.innerHTML = "Touch";
+   // direction.innerHTML = "Touch";
 }
 
 function handleTouchMove(stick, direction, evt) {
@@ -109,6 +110,9 @@ function handleTouchMove(stick, direction, evt) {
 
     stick.style.left = newX + 'px';
     stick.style.top = newY + 'px';
+
+    document.getElementById("x_").innerHTML = newX;
+    document.getElementById("y_").innerHTML = newY;
 
     var deltaX = newX - stick.offsetLeft;
     var deltaY = newY - stick.offsetTop;
