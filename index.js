@@ -1,7 +1,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const fps = 50;
-const game_interval = 200;
+const game_interval = 100;
 const Space = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -60,7 +60,7 @@ let Player2 = {
 let Shoots = [];
 const Step = 0.2;
 const Shoot_speed = 0.4;
-const colldown = 500;
+const colldown = 400;
 
 Player1.self.style.width = `${canvas.clientWidth/Space[0].length}px`;
 Player1.self.style.height = `${canvas.clientHeight/Space.length}px`;
@@ -217,7 +217,7 @@ function NewGame() {
                 }
             }
         });
-        document.getElementById("indic").innerHTML = `Direc ${Player1.direction}`;
+        document.getElementById("pl_1_lives").innerHTML = `Lives: ${Player1.lives}`;
         if (Player1.lives === 0 || Player2.lives === 0) {
             alert("GAME OVER");
             NewGame();
@@ -373,7 +373,6 @@ function handleTouchStart(stick, direction, evt) {
     initialX[stick.id] = evt.touches[0].clientX - stick.offsetLeft;
     initialY[stick.id] = evt.touches[0].clientY - stick.offsetTop;
    // direction.innerHTML = "Touch";
-   document.getElementById("cordin").innerHTML = `x=>${newX};; y=>${newY}`;
 
 }
 function handleTouchMove(stick, direction, evt) {
@@ -393,7 +392,6 @@ function handleTouchMove(stick, direction, evt) {
     stick.style.left = newX + 'px';
     stick.style.top = newY + 'px';
 
-    document.getElementById("cordin").innerHTML = `x=>${newX};; y=>${newY}`;
 
     var deltaX = newX - stick.offsetLeft;
     var deltaY = newY - stick.offsetTop;
@@ -405,7 +403,6 @@ function handleTouchMove(stick, direction, evt) {
       Player1.right = false;
       Player1.down = false;
       Player1.left = true;
-      document.getElementById("indik").innerHTML = "up";
     } 
     //
     if (newY > maxY/2 && 
@@ -415,7 +412,6 @@ function handleTouchMove(stick, direction, evt) {
       Player1.right = true;
       Player1.down = false;
       Player1.left = false;
-      document.getElementById("indik").innerHTML = "down";
     } 
     //
     if (newX < maxX/2 && 
@@ -425,7 +421,6 @@ function handleTouchMove(stick, direction, evt) {
       Player1.right = false;
       Player1.down = true;
       Player1.left = false;
-      document.getElementById("indik").innerHTML = "left";
     } 
     //
     if (newX > maxX/2 && 
@@ -435,7 +430,6 @@ function handleTouchMove(stick, direction, evt) {
       Player1.right = false;
       Player1.down = false;
       Player1.left = false;
-      document.getElementById("indik").innerHTML = "right";
     } 
     evt.preventDefault();
 }
@@ -444,6 +438,10 @@ function handleTouchEnd(stick, direction) {
     initialY[stick.id] = undefined;
     stick.style.left = '50%';
     stick.style.top = '50%';
+    Player1.up = false;
+    Player1.right = false;
+    Player1.down = false;
+    Player1.left = false;
     //direction.innerHTML = "Direction: Center";
 }
 //
