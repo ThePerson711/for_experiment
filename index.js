@@ -37,7 +37,7 @@ let Player1 = {
     },
     img: document.getElementById("tank_1"),
     f_cd: 0,
-    lives: 99
+    lives: 5
 }
 let Player2 = {
     self: document.getElementById("palyer2"),
@@ -55,7 +55,7 @@ let Player2 = {
     },
     img: document.getElementById("tank_2"),
     f_cd: 0,
-    lives: 99
+    lives: 5
 }
 let Shoots = [];
 const Step = 0.2;
