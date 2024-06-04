@@ -224,7 +224,8 @@ function NewGame() {
         }
         DrawSpace();
         ResetDisplay();
-    }, game_interval);
+        document.getElementById("indic").innerHTML = `Direc ${Player1.direction}`;
+;    }, game_interval);
 }
 //
 //

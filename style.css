@@ -113,3 +113,12 @@ p {
     top: 50%;
     left: 0;
   }
+  .Shoot_btn {
+    width: calc(1vw*22);
+    height: calc(1vw*10);
+    border-radius: calc(1vw*4);
+    border: none;
+    box-shadow: 0 0 calc(1vw*2) black;
+    font-weight: bold;
+    font-size: 20px;
+  }
