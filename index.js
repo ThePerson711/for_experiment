@@ -1,7 +1,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const fps = 50;
-const game_interval = 100;
+const game_interval = 200;
 const Space = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -37,7 +37,7 @@ let Player1 = {
     },
     img: document.getElementById("tank_1"),
     f_cd: 0,
-    lives: 3
+    lives: 99
 }
 let Player2 = {
     self: document.getElementById("palyer2"),
@@ -55,7 +55,7 @@ let Player2 = {
     },
     img: document.getElementById("tank_2"),
     f_cd: 0,
-    lives: 3
+    lives: 99
 }
 let Shoots = [];
 const Step = 0.2;
@@ -217,6 +217,7 @@ function NewGame() {
                 }
             }
         });
+        document.getElementById("indic").innerHTML = `Direc ${Player1.direction}`;
         if (Player1.lives === 0 || Player2.lives === 0) {
             alert("GAME OVER");
             NewGame();
@@ -224,7 +225,6 @@ function NewGame() {
         }
         DrawSpace();
         ResetDisplay();
-        document.getElementById("indic").innerHTML = `Direc ${Player1.direction}`;
 ;    }, game_interval);
 }
 //
@@ -373,6 +373,8 @@ function handleTouchStart(stick, direction, evt) {
     initialX[stick.id] = evt.touches[0].clientX - stick.offsetLeft;
     initialY[stick.id] = evt.touches[0].clientY - stick.offsetTop;
    // direction.innerHTML = "Touch";
+   document.getElementById("cordin").innerHTML = `x=>${newX};; y=>${newY}`;
+
 }
 function handleTouchMove(stick, direction, evt) {
     if (initialX[stick.id] === undefined || initialY[stick.id] === undefined) {
@@ -391,8 +393,7 @@ function handleTouchMove(stick, direction, evt) {
     stick.style.left = newX + 'px';
     stick.style.top = newY + 'px';
 
-    document.getElementById("x_").innerHTML = newX;
-    document.getElementById("y_").innerHTML = newY;
+    document.getElementById("cordin").innerHTML = `x=>${newX};; y=>${newY}`;
 
     var deltaX = newX - stick.offsetLeft;
     var deltaY = newY - stick.offsetTop;
