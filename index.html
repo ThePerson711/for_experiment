@@ -68,7 +68,7 @@
   </div>
   <p id="x_">x:</p>
   <p id="y_">y:</p>
-  <p>version: 1:04</p>
+  <p>version: 1:05</p>
 <script>
 
 var stick1 = document.getElementById('stick1');
@@ -134,7 +134,7 @@ function handleTouchMove(stick, direction, evt) {
     } 
     //
     if (newX > maxX/2 && 
-      ((newY > maxY/2 && newY/(maxX-newX) > 1) || (newY > maxY/2 && (maxY-(maxX-newX))/newX > 1))) {
+      ((newY <= maxY/2 && newY/(maxX-newX) > 1) || (newY > maxY/2 && (maxY-newY)/(maxX-newX) > 1))) {
       direction.innerHTML = "Direction: RIGHT";
     } 
 
