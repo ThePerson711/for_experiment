@@ -46,6 +46,12 @@
   top: 50%;
   left: 0;
 }
+.par {
+  color: red;
+  left: 100px;
+  font-size: 42px;
+  border: solid 4px blue;
+}
 
 </style>
 </head>
@@ -53,11 +59,11 @@
   <div class="container">
     <div class="joystick">
       <div class="stick" id="stick1"></div>
-      <p id="direction1">Direction: Center</p>
+      <p class="par" id="direction1">Direction: Center</p>
     </div>
     <div class="joystick">
       <div class="stick" id="stick2"></div>
-      <p id="direction2">Direction: Center</p>
+      <p class="par" id="direction2">Direction: Center</p>
     </div>
   </div>
 
@@ -108,13 +114,13 @@ function handleTouchMove(stick, direction, evt) {
     var deltaY = newY - stick.offsetTop;
 
     if (deltaX < -5) {
-        direction.textContent = "Direction: Left";
+        direction.innerHTML = "Direction: Left";
     } else if (deltaX > 5) {
-        direction.textContent = "Direction: Right";
+        direction.innerHTML = "Direction: Right";
     } else if (deltaY < -5) {
-        direction.textContent = "Direction: Up";
+        direction.innerHTML = "Direction: Up";
     } else if (deltaY > 5) {
-        direction.textContent = "Direction: Down";
+        direction.innerHTML = "Direction: Down";
     }
 
     evt.preventDefault();
@@ -125,7 +131,7 @@ function handleTouchEnd(stick, direction) {
     initialY[stick.id] = undefined;
     stick.style.left = '50%';
     stick.style.top = '50%';
-    direction.textContent = "Direction: Center";
+    direction.innerHTML = "Direction: Center";
 }
 
 
