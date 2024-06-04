@@ -89,7 +89,7 @@ var initialY = {};
 function handleTouchStart(stick, direction, evt) {
     initialX[stick.id] = evt.touches[0].clientX - stick.offsetLeft;
     initialY[stick.id] = evt.touches[0].clientY - stick.offsetTop;
-    direction.textContent = "Direction: ";
+    direction.innerHTML = "Touch";
 }
 
 function handleTouchMove(stick, direction, evt) {
