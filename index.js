@@ -358,9 +358,9 @@ var stick2 = document.getElementById('stick2');
     //var direction1 = document.getElementById('direction1');
     //var direction2 = document.getElementById('direction2');
 //
-stick1.addEventListener('touchstart', handleTouchStart.bind(null, stick1, direction1), false);
-stick1.addEventListener('touchmove', handleTouchMove.bind(null, stick1, direction1), false);
-stick1.addEventListener('touchend', handleTouchEnd.bind(null, stick1, direction1), false);
+stick1.addEventListener('touchstart', handleTouchStart.bind(null, stick1, 1), false);
+stick1.addEventListener('touchmove', handleTouchMove.bind(null, stick1, 1), false);
+stick1.addEventListener('touchend', handleTouchEnd.bind(null, stick1, 1), false);
 //
     //stick2.addEventListener('touchstart', handleTouchStart.bind(null, stick2, direction2), false);
     //stick2.addEventListener('touchmove', handleTouchMove.bind(null, stick2, direction2), false);
@@ -444,7 +444,7 @@ function handleTouchEnd(stick, direction) {
     initialY[stick.id] = undefined;
     stick.style.left = '50%';
     stick.style.top = '50%';
-    direction.innerHTML = "Direction: Center";
+    //direction.innerHTML = "Direction: Center";
 }
 //
 //
