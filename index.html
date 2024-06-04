@@ -68,6 +68,7 @@
   </div>
   <p id="x_">x:</p>
   <p id="y_">y:</p>
+  <p>version: 1:02</p>
 <script>
 
 var stick1 = document.getElementById('stick1');
@@ -118,12 +119,12 @@ function handleTouchMove(stick, direction, evt) {
     var deltaY = newY - stick.offsetTop;
 
     if (newY < maxY/2 && 
-      ((newX <= maxX/2 && newX/newY < 1) || (newX > maxX/2 && (maxX/2-newX)/newY < 1))) {
+      ((newX <= maxX/2 && newX/newY > 1) || (newX > maxX/2 && (maxX-newX)/newY > 1))) {
       direction.innerHTML = "Direction: UP";
     } 
     //
     if (newY > maxY/2 && 
-      ((newX <= maxX/2 && newX/newY < 1) || (newX > maxX/2 && (maxX/2-newX)/newY < 1))) {
+      ((newX <= maxX/2 && newX/(maxY-newY) > 1) || (newX > maxX/2 && (maxX-(maxY-newY))/newY > 1))) {
       direction.innerHTML = "Direction: Down";
     } 
     //
